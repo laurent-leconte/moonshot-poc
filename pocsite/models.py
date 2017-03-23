@@ -8,19 +8,23 @@ from dateutil.relativedelta import relativedelta
 def one_month_from_now():
     return date.today() + relativedelta(months=+1)
 
+def one_week_from_now():
+    return date.today() + relativedelta(weeks=+1)
+
+
 #A product is an insurance offer, the basic block of the catalogue
 class Product(models.Model):
     #Product name and description
     product_name = models.CharField(max_length=30)
-    product_description = models.TextField(help_text="a simple description of the product")
+    product_description = models.TextField(help_text="A simple description of the product")
     #toggle to publih / unpublish a product
-    is_published = models.BooleanField(default=True, help_text="allow this product to be subscribed")
+    is_published = models.BooleanField(default=True, verbose_name="Publish in catalog", help_text="Allow this product to be subscribed")
     #simple pricing scheme to start : fixed price and payout
-    base_price = models.DecimalField(max_digits=6, decimal_places=2, help_text="price of the product")
-    base_payout = models.DecimalField(max_digits=8, decimal_places=2, help_text="the amount to reimburse the customer if insurance is activated")
+    base_price = models.DecimalField(max_digits=6, decimal_places=2, help_text="Price of the product")
+    base_payout = models.DecimalField(max_digits=8, decimal_places=2, help_text="The amount to reimburse the customer if insurance is activated")
     
     def __str__(self):
-        return product_name
+        return self.product_name
 
 #A quote is a contract proposal which hasn't been accepted yet by the customer
 class Quote(models.Model):
@@ -28,7 +32,7 @@ class Quote(models.Model):
     id = models.UUIDField(primary_key=True, default= uuid.uuid4)
     product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
     creation_date = models.DateField(auto_now_add=True)
-    expiration_date = models.DateField(null=True, blank=True)
+    expiration_date = models.DateField(null=True, blank=True, default=one_week_from_now)
     quote_price = models.DecimalField(max_digits=6, decimal_places=2)
     quote_payout = models.DecimalField(max_digits=8, decimal_places=2)
     QUOTE_STATUS = (
