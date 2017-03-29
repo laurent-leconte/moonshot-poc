@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Our products !</h1>
+
+    {% if product_list %}
+    <ul>
+
+      {% for product in product_list %}
+      <li>
+        {{ product.product_name }}: {{ product.product_description }} <a href="{{ product.product_name }}">(get a quote)</a> 
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no books in the library.</p>
+    {% endif %}       
+{% endblock %}
