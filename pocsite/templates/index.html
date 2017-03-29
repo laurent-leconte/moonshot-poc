@@ -9,8 +9,9 @@
 
   <p>These are the products you can subscribe to:</p>
   <ul>
-    <li>TBC</li>
-    
+    {% for product in products %}
+    <li>{{ product }}</li>
+    {% endfor %}
   </ul>
 
 {% endblock %}
