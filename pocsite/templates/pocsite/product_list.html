@@ -8,7 +8,7 @@
 
       {% for product in product_list %}
       <li>
-        {{ product.product_name }}: {{ product.product_description }} <a href="{{ product.product_name }}">(get a quote)</a> 
+        {{ product.product_name }}: {{ product.product_description }} <a href="{% url 'get_quote' product.id %}">(get a quote)</a> 
       </li>
       {% endfor %}
 
