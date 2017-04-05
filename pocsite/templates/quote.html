@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Quote created</h1>
+
+  <p>Your quote was successfully generated.</p>
+  <ul>
+    <li>Reference : {{ quote }}</li>
+    <li>Price : {{ quote.quote_price }}</li>
+    <li>Policy amount : {{ quote.quote_payout }}</li>
+    <li>Status : {{ quote.pretty_status }} {% if quote.status == "p"%} (Expiration date : {{quote.expiration_date}}) {% endif %}</li>
+    
+  </ul>
+
+{% endblock %}

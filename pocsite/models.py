@@ -43,6 +43,13 @@ class Quote(models.Model):
     )
     status = models.CharField(max_length=1, choices=QUOTE_STATUS, blank=True, default='p', help_text='Quote status')
 
+
+    def pretty_status(self):
+        for (short, long) in self.QUOTE_STATUS:
+            if self.status == short:
+                return long
+        return "Unknown status"
+
     def __str__(self):
         return "Quote %s (%s)" % (self.id, self.product)
 

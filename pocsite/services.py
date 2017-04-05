@@ -10,7 +10,9 @@ def generate_quote(product_id):
             return quote
         else:
             #TODO : handle non-published products properly
+            print("non-published product")
             return None
     except Product.DoesNotExist:
         #TODO : handle error properly
+        print("non-existent product")
         return None
